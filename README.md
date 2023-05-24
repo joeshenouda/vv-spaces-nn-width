@@ -1,6 +1,6 @@
 # Vector-Valued Variation Spaces and Width Bounds for Deep Neural Networks: Insights on Weight Decay Regularization
 
-Codebase for reproducing experimental results in the paper "Vector-Valued Variation Spaces and Width Bounds for Deep Neural Networks: Insights on Weight Decay Regularization"
+Codebase for reproducing experimental results in the paper "Vector-Valued Variation Spaces and Width Bounds for Deep Neural Networks: Insights on Weight Decay Regularization"-Joseph Shenouda, Rahul Parhi, Kangwook Lee and Robert D. Nowak
 
 ## Basic Setup
 - Clone this repository

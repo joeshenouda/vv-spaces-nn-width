@@ -4,3 +4,6 @@ data/
 explore.ipynb
 alexnet_pretrained/
 vgg_pretrained/
+__pycache__/
+models/__pycache__/
+datasets/__pycache__/

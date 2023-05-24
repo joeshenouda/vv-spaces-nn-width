@@ -8,7 +8,6 @@ import os
 
 parser = argparse.ArgumentParser(description='Train and Test on compressed VGG19')
 parser.add_argument('--path-new-V_last', type=str, help='Path to new V For Last Layer')
-parser.add_argument('--path-new-V_penult', type=str, default=None, help='Path to new V for penultimate layer')
 
 args = parser.parse_args()
 
@@ -35,25 +34,15 @@ print('Original Train Loss: {:.5f}'.format(orig_train_loss), '\n')
 vgg19_compressed = FullRankVGG19().to(device)
 vgg19_compressed.load_state_dict(vgg_vanilla_model['net'])
 
-if args.path_new_V_last is not None:
-    # Replace final linear with new V
-    V_new_last = np.load(args.path_new_V_last)
-    act_cols_last = 0
-    for v_col in V_new_last.T:
-        if np.linalg.norm(v_col) > 1e-7:
-            act_cols_last += 1
-    print('Active Neurons Last Layer {}'.format(act_cols_last))
+# Replace final linear with new V
+V_new_last = np.load(args.path_new_V_last)
+act_cols_last = 0
+for v_col in V_new_last.T:
+    if np.linalg.norm(v_col) > 1e-7:
+        act_cols_last += 1
+print('Active Neurons Last Layer {}'.format(act_cols_last))
 
-    vgg19_compressed.classifier[6].weight.data = torch.from_numpy(V_new_last).float().to(device)
-
-if args.path_new_V_penult is not None:
-    V_new_penult = np.load(args.path_new_V_penult)
-    act_cols_penult = 0
-    for v_col in V_new_penult.T:
-        if np.linalg.norm(v_col) > 1e-7:
-            act_cols_penult += 1
-    print('Active Neurons Penultimate Layer {}'.format(act_cols_penult))
-    vgg19_compressed.classifier[4].weight.data = torch.from_numpy(V_new_penult).float().to(device)
+vgg19_compressed.classifier[6].weight.data = torch.from_numpy(V_new_last).float().to(device)
 
 # Get new train and test accuracies
 new_test_acc = test(vgg19_compressed, cifar10_test_loader)

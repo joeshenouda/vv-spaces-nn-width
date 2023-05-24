@@ -4,7 +4,7 @@ import numpy as np
 import torch.nn.functional as F
 import torchvision.transforms as transforms
 from models import FullRankVGG19
-from datasets import CIFAR10
+from datasets import CIFAR10_DA
 import argparse
 import os
 import datetime
@@ -45,7 +45,7 @@ device='cuda:1'
 
 data_path = './data/cifar10'
 samps=50000
-cifar10_data = CIFAR10(data_path, samps=50000, bt_size=2048)
+cifar10_data = CIFAR10_DA(data_path, samps=50000, bt_size=2048)
 
 cifar10_train_loader = cifar10_data.train_loader
 cifar10_test_loader = cifar10_data.test_loader

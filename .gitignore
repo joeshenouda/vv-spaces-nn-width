@@ -1,0 +1,6 @@
+results/
+wandb/
+data/
+explore.ipynb
+alexnet_pretrained/
+vgg_pretrained/
